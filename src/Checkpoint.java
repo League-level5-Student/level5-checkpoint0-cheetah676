@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 
 public class Checkpoint {
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		/*
 		 * The auto-mgp.data file contains the miles-per-gallon data on various different types of cars.
@@ -42,13 +45,20 @@ public class Checkpoint {
 			System.out.println(print.mpg);
 		});
 		Stream <CarMPGEntry> nameStream=cars.stream();
-		nameStream.forEach(print->{
-			ArrayList<String> names=new ArrayList<String>();
-			//put in alphabetical order
-			names.add(print.carName);
+		nameStream.sorted((CarMPGEntry1, CarMPGEntry2)->CarMPGEntry1.carName.compareTo(CarMPGEntry2.carName)).forEach(print->{
+			System.out.println(print.carName);
 		});
-		
-		
+
+		Stream <CarMPGEntry> noEightCylinder=cars.stream();
+		noEightCylinder.forEach(print->{
+			if(print.cylinders!=8) {
+				System.out.println(print.cylinders);
+			}
+		});
+		Stream <CarMPGEntry> toyotaFilter=cars.stream();
+		toyotaFilter.filter(s->s.carName.contains("toyota")).forEach(print->{
+			System.out.println(print.carName);
+		});
 	}
 	
 	public static ArrayList<CarMPGEntry> readCarMPGEntryDataFromFile(){
